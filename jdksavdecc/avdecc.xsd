@@ -1,0 +1,1930 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema  version="1.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    targetNamespace="http://grouper.ieee.org/groups/1722/1/contributions/xml"
+    xmlns:aem="http://grouper.ieee.org/groups/1722/1/contributions/xml"  
+    >
+    <!--
+        
+        This is V1.0 of the IEEE Std 1722.1-2013 AEMXML file format in XSD v1.0 format.
+        Released Oct 29, 2013
+        
+        Please see http://grouper.ieee.org/groups/1722/1/contributions/xml/ for example aemxml files.
+        
+        -->
+    
+    <!-- entity xsd version mapping -->
+    
+    <xs:element name="entity" type="aem:EntityV1"/>
+    
+    <xs:complexType name="EntityV1">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.1</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="entity_id" type="aem:EUI64"/>
+            <xs:element name="entity_model_id" type="aem:EUI64"/>
+            <xs:element name="entity_capabilities" type="aem:Quadlet"/>
+            <xs:element name="talker_stream_sources" type="aem:Doublet"/>
+            <xs:element name="talker_capabilties" type="aem:Doublet"/>
+            <xs:element name="listener_stream_sinks" type="aem:Doublet"/>
+            <xs:element name="listener_capabilities" type="aem:Doublet"/>
+            <xs:element name="controller_capabilities" type="aem:Quadlet"/>
+            <xs:element name="association_id" type="aem:EUI64"/>
+            <xs:element name="entity_name" type="aem:AVDECCString"/>
+            <xs:element name="vendor_name" type="aem:LocalizedStringContainer"/>
+            <xs:element name="model_name" type="aem:LocalizedStringContainer"/>
+            <xs:element name="firmware_version" type="aem:AVDECCString"/>
+            <xs:element name="group_name" type="aem:AVDECCString"/>
+            <xs:element name="serial_number" type="aem:AVDECCString"/>
+            <xs:element name="current_configuration" type="aem:DescriptorIndex"/>
+            <xs:element name="configurations" type="aem:ConfigurationDescriptors"/>
+        </xs:sequence>
+        <xs:attribute name="version" use="required" type="xs:string"/>
+    </xs:complexType>    
+    
+    <xs:complexType name="ConfigurationDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="configuration" type="aem:ConfigurationDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="ConfigurationDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.2</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="audio_units" type="aem:AudioUnitDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="video_units" type="aem:VideoUnitDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="sensor_units" type="aem:SensorUnitDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_streams" type="aem:StreamDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_streams" type="aem:StreamDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_jacks" type="aem:JackDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_jacks" type="aem:JackDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="avb_interfaces" type="aem:AVBInterfaceDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="clock_sources" type="aem:ClockSourceDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="signal_selectors" type="aem:SignalSelectorDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="mixers" type="aem:MixerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="matrices" type="aem:MatrixDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="locales" type="aem:LocaleDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="splitters" type="aem:SignalSplitterDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="combiners" type="aem:SignalCombinerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="demultiplexers" type="aem:SignalDemultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="multiplexers" type="aem:SignalMultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="transcoders" type="aem:SignalTranscoderDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="memory_objects" type="aem:MemoryObjectDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="clock_domains" type="aem:ClockDomainDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="control_blocks" type="aem:ControlBlockDescriptors"/>            
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>                            
+    
+    <xs:complexType name="AudioUnitDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="audio_unit" type="aem:AudioUnitDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="AudioUnitDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.3</xs:documentation>
+        </xs:annotation>        
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_stream_ports" type="aem:AudioStreamPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_stream_ports" type="aem:AudioStreamPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_external_ports" type="aem:ExternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_external_ports" type="aem:ExternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_internal_ports" type="aem:InternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_internal_ports" type="aem:InternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="signal_selectors" type="aem:SignalSelectorDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="mixers" type="aem:MixerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="matrices" type="aem:MatrixDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="splitters" type="aem:SignalSplitterDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="combiners" type="aem:SignalCombinerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="demultiplexers" type="aem:SignalDemultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="multiplexers" type="aem:SignalMultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="transcoders" type="aem:SignalTranscoderDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="control_blocks" type="aem:ControlBlockDescriptors"/>
+            <xs:element name="current_sampling_rate" type="aem:SamplingRate"/>
+            <xs:element name="sampling_rates" type="aem:SamplingRates"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType> 
+    
+    <xs:complexType name="VideoUnitDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="video_unit" type="aem:VideoUnitDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="VideoUnitDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.4</xs:documentation>
+        </xs:annotation>        
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_stream_ports" type="aem:VideoStreamPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_stream_ports" type="aem:VideoStreamPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_external_ports" type="aem:ExternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_external_ports" type="aem:ExternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_internal_ports" type="aem:InternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_internal_ports" type="aem:InternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="signal_selectors" type="aem:SignalSelectorDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="mixers" type="aem:MixerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="matrices" type="aem:MatrixDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="splitters" type="aem:SignalSplitterDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="combiners" type="aem:SignalCombinerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="demultiplexers" type="aem:SignalDemultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="multiplexers" type="aem:SignalMultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="transcoders" type="aem:SignalTranscoderDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="control_blocks" type="aem:ControlBlockDescriptors"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="SensorUnitDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="sensor_unit" type="aem:SensorUnitDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SensorUnitDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.5</xs:documentation>
+        </xs:annotation>                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_stream_ports" type="aem:SensorStreamPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_stream_ports" type="aem:SensorStreamPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_external_ports" type="aem:ExternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_external_ports" type="aem:ExternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="input_internal_ports" type="aem:InternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="output_internal_ports" type="aem:InternalPortDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="signal_selectors" type="aem:SignalSelectorDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="mixers" type="aem:MixerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="matrices" type="aem:MatrixDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="splitters" type="aem:SignalSplitterDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="combiners" type="aem:SignalCombinerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="demultiplexers" type="aem:SignalDemultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="multiplexers" type="aem:SignalMultiplexerDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="transcoders" type="aem:SignalTranscoderDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="control_blocks" type="aem:ControlBlockDescriptors"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="StreamDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="stream" type="aem:StreamDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="StreamDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.6</xs:documentation>
+        </xs:annotation>                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element name="stream_flags" type="aem:Doublet"/>
+            <xs:element name="current_stream_format" type="aem:StreamFormat"/>
+            <xs:element name="backup_talker_entity_id0" type="aem:EUI64"/>
+            <xs:element name="backup_talker_uniqueid0" type="aem:Doublet"/>
+            <xs:element name="backup_talker_entity_id1" type="aem:EUI64"/>
+            <xs:element name="backup_talker_uniqueid1" type="aem:Doublet"/>
+            <xs:element name="backup_talker_entity_id2" type="aem:EUI64"/>
+            <xs:element name="backup_talker_uniqueid2" type="aem:Doublet"/>
+            <xs:element name="backed_up_talker_entity_id" type="aem:EUI64"/>
+            <xs:element name="backed_up_talker_uniqueid" type="aem:Doublet"/>
+            <xs:element name="avb_interface_index" type="aem:DescriptorIndex"/>
+            <xs:element name="buffer_length" type="aem:Quadlet"/>
+            <xs:element name="stream_formats" type="aem:StreamFormats"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="JackDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="jack" type="aem:JackDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="JackDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.7</xs:documentation>
+        </xs:annotation>                        
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="jack_flags" type="aem:Doublet"/>
+            <xs:element name="jack_type" type="aem:Doublet"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="controls" type="aem:ControlDescriptors"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="AVBInterfaceDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="avb_interface" type="aem:AVBInterfaceDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AVBInterfaceDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.8</xs:documentation>
+        </xs:annotation>                        
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="mac_address" type="aem:MAC"/>
+            <xs:element name="clock_identity" type="aem:EUI64"/>
+            <xs:element name="interface_flags" type="aem:Doublet"/>
+            <xs:element name="priority1" type="aem:Octet"/>
+            <xs:element name="clock_class" type="aem:Octet"/>
+            <xs:element name="offset_scaled_log_variance" type="aem:Doublet"/>
+            <xs:element name="clock_accuracy" type="aem:Octet"/>
+            <xs:element name="priority2" type="aem:Octet"/>
+            <xs:element name="domain_number" type="aem:Octet"/>
+            <xs:element name="log_sync_interval" type="aem:Octet"/>
+            <xs:element name="log_announce_interval" type="aem:Octet"/>
+            <xs:element name="log_pdelay_interval" type="aem:Octet"/>
+            <xs:element name="port_number" type="aem:Doublet"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="ClockSourceDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="clock_source" type="aem:ClockSourceDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="ClockSourceDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.9</xs:documentation>
+        </xs:annotation>                        
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="clock_source_flags" type="aem:Doublet"/>
+            <xs:element name="clock_source_type" type="aem:Doublet"/>
+            <xs:element name="clock_source_id" type="aem:EUI64"/>
+            <xs:element name="clock_source_location_type" type="aem:DescriptorType"/>
+            <xs:element name="clock_source_location_index" type="aem:DescriptorIndex"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="MemoryObjectDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="memory_object" type="aem:MemoryObjectDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MemoryObjectDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.10</xs:documentation>
+        </xs:annotation>                        
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="memory_object_type" type="aem:Doublet"/>
+            <xs:element name="target_descriptor_type" type="aem:DescriptorType"/>
+            <xs:element name="target_descriptor_index" type="aem:DescriptorIndex"/>
+            <xs:element name="start_address" type="aem:Octlet"/>
+            <xs:element name="maximum_length" type="aem:Octlet"/>
+            <xs:element name="length" type="aem:Octlet"/>
+            <xs:choice minOccurs="0">
+                <xs:element name="data_url" type="xs:anyURI"/>
+                <xs:element name="data" type="aem:HexBlobData"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>        
+    
+    <xs:complexType name="LocaleDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="locale" type="aem:LocaleDescriptor"/>                
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LocaleDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.11</xs:documentation>
+        </xs:annotation>                                
+        <xs:sequence>
+            <xs:element name="locale_identifier" type="aem:AVDECCString"/>
+            <xs:element name="locale_strings" type="aem:StringsDescriptors"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>               
+    </xs:complexType>
+    
+    <xs:complexType name="StringsDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="strings" type="aem:StringsDescriptor"/>            
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>                                
+    <xs:complexType name="StringsDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.12</xs:documentation>
+        </xs:annotation>                                
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="7" name="string" type="aem:AVDECCString"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>                
+    </xs:complexType>                       
+    
+    <xs:complexType name="AudioStreamPortDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="stream_port" type="aem:AudioStreamPortDescriptor" />            
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="AudioStreamPortDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.13</xs:documentation>
+        </xs:annotation>                                        
+        <xs:sequence>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element name="port_flags" type="aem:Doublet"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element name="clusters" type="aem:AudioClusterDescriptors"/>                        
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="maps" type="aem:AudioMapDescriptors"/>                        
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="VideoStreamPortDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="stream_port" type="aem:VideoStreamPortDescriptor"/>            
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VideoStreamPortDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.13</xs:documentation>
+        </xs:annotation>                                        
+        <xs:sequence>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element name="port_flags" type="aem:Doublet"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element name="clusters" type="aem:VideoClusterDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="maps" type="aem:VideoMapDescriptors"/>                        
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="SensorStreamPortDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="stream_port" type="aem:SensorStreamPortDescriptor"/>            
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SensorStreamPortDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.13</xs:documentation>
+        </xs:annotation>                                        
+        <xs:sequence>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element name="port_flags" type="aem:Doublet"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element name="clusters" type="aem:SensorClusterDescriptors"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="maps" type="aem:SensorMapDescriptors"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="ExternalPortDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="external_port" type="aem:ExternalPortDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="ExternalPortDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.14</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element name="port_flags" type="aem:Doublet"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="jack_index" type="aem:DescriptorIndex"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="InternalPortDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="internal_port" type="aem:InternalPortDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="InternalPortDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.15</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element name="clock_domain_index" type="aem:DescriptorIndex"/>
+            <xs:element name="port_flags" type="aem:Doublet"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="controls" type="aem:ControlDescriptors"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="internal_index" type="aem:DescriptorIndex"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>    
+    
+    <xs:complexType name="AudioClusterDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="audio_cluster" type="aem:AudioClusterDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="AudioClusterDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.16</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="path_latency" type="aem:Quadlet"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="channel_count" type="aem:Doublet"/>
+            <xs:element name="format" type="aem:Octet"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="VideoClusterDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="video_cluster" type="aem:VideoClusterDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>        
+    <xs:complexType name="VideoClusterDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.17</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="path_latency" type="aem:Quadlet"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="format" type="aem:Octet"/>
+            <xs:element name="current_format_specific" type="aem:Quadlet"/>
+            <xs:element name="current_sampling_rate" type="aem:SamplingRate"/>
+            <xs:element name="current_aspect_ratio" type="aem:AspectRatio" />
+            <xs:element name="current_video_size" type="aem:VideoSize" />
+            <xs:element name="current_color_space" type="aem:ColorSpace"/>
+            <xs:element name="format_specifics" type="aem:VideoClusterFormatSpecifics"/>            
+            <xs:element name="sampling_rates" type="aem:SamplingRates"/>
+            <xs:element name="aspect_ratios" type="aem:VideoClusterAspectRatios"/>            
+            <xs:element name="video_sizes" type="aem:VideoClusterSizes"/>            
+            <xs:element name="color_spaces" type="aem:VideoClusterColorSpaces"/>            
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>    
+    <xs:complexType name="VideoClusterFormatSpecifics">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="format_specific" type="aem:Quadlet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VideoClusterAspectRatios">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="aspect_ratio" type="aem:AspectRatio" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VideoClusterSizes">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="video_size" type="aem:VideoSize" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VideoClusterColorSpaces">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="color_space" type="aem:ColorSpace" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="SensorClusterDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="sensor_cluster" type="aem:SensorClusterDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SensorClusterDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.18</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="path_latency" type="aem:Quadlet"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="current_sensor_format" type="aem:StreamFormat"/>
+            <xs:element name="sampling_rate" type="aem:SamplingRate"/>
+            <xs:element name="sensor_formats" type="aem:SensorFormats"/>            
+            <xs:element name="sampling_rates" type="aem:SamplingRates"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>    
+    <xs:complexType name="SensorFormats">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="sensor_format" type="aem:StreamFormat"/>                            
+        </xs:sequence>        
+    </xs:complexType>    
+    
+    
+    <xs:complexType name="AudioMapDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="audio_map" type="aem:AudioMapDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="AudioMapDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.19</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="audio_mapping" type="aem:AudioMapping"/>            
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>    
+    <xs:complexType name="AudioMapping">
+        <xs:sequence>
+            <xs:element name="stream_index" type="aem:DescriptorIndex"/>
+            <xs:element name="stream_channel" type="aem:Doublet"/>
+            <xs:element name="cluster_offset" type="aem:Doublet"/>
+            <xs:element name="cluster_channel" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="VideoMapDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="video_map" type="aem:VideoMapDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VideoMapDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.20</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="video_mapping" type="aem:VideoMapping"/>                                            
+        </xs:sequence>        
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="VideoMapping">
+        <xs:sequence>
+            <xs:element name="stream_index" type="aem:DescriptorIndex"/>
+            <xs:element name="program_stream" type="aem:Doublet"/>
+            <xs:element name="elementary_stream" type="aem:Doublet"/>
+            <xs:element name="cluster_offset" type="aem:Doublet"/>
+        </xs:sequence>        
+    </xs:complexType>
+    
+    <xs:complexType name="SensorMapDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="sensor_map" type="aem:SensorMapDescriptor"/>            
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SensorMapDescriptor">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="sensor_mapping" type="aem:SensorMapping"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="SensorMapping">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.21</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element name="stream_index" type="aem:DescriptorIndex"/>
+            <xs:element name="stream_signal" type="aem:Doublet"/>
+            <xs:element name="cluster_offset" type="aem:Doublet"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="ControlDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="control" type="aem:ControlDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ControlDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.22</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="control_type" type="aem:EUI64"/>
+            <xs:element name="control_value_type" type="aem:Doublet"/>
+            <xs:element name="reset_time" type="aem:Quadlet"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>            
+            <xs:element name="values" type="aem:Values"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="SignalSelectorDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal_selector" type="aem:SignalSelectorDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalSelectorDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.23</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="current_signal_type" type="aem:DescriptorType"/>
+            <xs:element name="current_signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="current_signal_output" type="aem:Doublet"/>
+            <xs:element name="default_signal_type" type="aem:DescriptorType"/>
+            <xs:element name="default_signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="default_signal_output" type="aem:Doublet"/>
+            <xs:element name="sources" type="aem:SignalSelectorSignalSources"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    <xs:complexType name="SignalSelectorSignalSources">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="signal" type="aem:SignalSelectorSignalSource"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalSelectorSignalSource">
+        <xs:sequence>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="MixerDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="mixer" type="aem:MixerDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MixerDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.24</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="control_value_type" type="aem:Doublet"/>
+            <xs:element name="sources" type="aem:MixerSignalSources"/>
+            <xs:element name="values" type="aem:Values"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    <xs:complexType name="MixerSignalSources">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="signal" type="aem:MixerSignalSource"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MixerSignalSource">
+        <xs:sequence>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="MatrixDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="matrix" type="aem:MatrixDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MatrixDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.25</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="control_type" type="aem:EUI64"/>
+            <xs:element name="control_value_type" type="aem:Doublet"/>
+            <xs:element name="width" type="aem:Doublet"/>
+            <xs:element name="height" type="aem:Doublet"/>
+            <xs:element name="values" type="aem:Values"/>
+            <xs:element name="sources" type="aem:MatrixSignalDescriptors"/>                
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>    
+    
+    <xs:complexType name="MatrixSignalDescriptors">
+        <xs:sequence>
+            <xs:element name="matrix_signal" minOccurs="1" maxOccurs="unbounded" type="aem:MatrixSignalDescriptor">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MatrixSignalDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.26</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signals" type="aem:MatrixSignalSourceContent"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    <xs:complexType name="MatrixSignalSourceContent">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal" type="aem:MatrixSignalSource"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MatrixSignalSource">
+        <xs:sequence>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="SignalSplitterDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal_splitter" type="aem:SignalSplitterDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SignalSplitterDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.27</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="number_of_outputs" type="aem:Doublet"/>
+            <xs:element name="mapping" type="aem:SignalSplitterMappings"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>    
+    <xs:complexType name="SignalSplitterMappings">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="splitter_mapping" type="aem:SignalSplitterMapping"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SignalSplitterMapping">
+        <xs:sequence>
+            <xs:element name="sub_signal_start" type="aem:Doublet"/>
+            <xs:element name="sub_signal_count" type="aem:Doublet"/>
+            <xs:element name="output_index" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="SignalCombinerDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal_combiner" type="aem:SignalCombinerDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalCombinerDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.28</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="sources" type="aem:SignalCombinerSources"/>
+            <xs:element name="mapping" type="aem:SignalCombinerMappings"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    <xs:complexType name="SignalCombinerSources">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="signal" type="aem:SignalCombinerSource"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalCombinerSource">
+        <xs:sequence>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalCombinerMappings">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="combiner_mapping" type="aem:SignalCombinerMapping"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SignalCombinerMapping">
+        <xs:sequence>
+            <xs:element name="sub_signal_start" type="aem:Doublet"/>
+            <xs:element name="sub_signal_count" type="aem:Doublet"/>
+            <xs:element name="input_index" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="SignalDemultiplexerDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal_demultiplexer" type="aem:SignalDemultiplexerDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalDemultiplexerDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.29</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="number_of_outputs" type="aem:Doublet"/>
+            <xs:element name="mapping" type="aem:SignalDemultiplexerMappings"/>            
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>    
+    <xs:complexType name="SignalDemultiplexerMappings">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="demultiplexer_mapping" type="aem:SignalDemultiplexerMapping"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SignalDemultiplexerMapping">
+        <xs:sequence>
+            <xs:element name="sub_signal_start" type="aem:Doublet"/>
+            <xs:element name="sub_signal_count" type="aem:Doublet"/>
+            <xs:element name="output_index" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="SignalMultiplexerDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal_multiplexer" type="aem:SignalMultiplexerDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalMultiplexerDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.30</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="sources" type="aem:SignalMultiplexerSignalSources"/>
+            <xs:element name="mapping" type="aem:SignalMultiplexerSignalSourceMappings"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    <xs:complexType name="SignalMultiplexerSignalSources">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="signal" type="aem:SignalMultiplexerSignalSource"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalMultiplexerSignalSource">
+        <xs:sequence>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalMultiplexerSignalSourceMappings">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal" type="aem:SignalMultiplexerSignalSource"/>
+        </xs:sequence>
+    </xs:complexType>    
+    
+    <xs:complexType name="SignalTranscoderDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="signal_transcoder" type="aem:SignalTranscoderDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SignalTranscoderDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.31</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="block_latency" type="aem:Quadlet"/>
+            <xs:element name="control_latency" type="aem:Quadlet"/>
+            <xs:element name="control_domain" type="aem:DescriptorIndex"/>
+            <xs:element name="control_value_type" type="aem:Doublet"/>
+            <xs:element name="signal_type" type="aem:DescriptorType"/>
+            <xs:element name="signal_index" type="aem:DescriptorIndex"/>
+            <xs:element name="signal_output" type="aem:Doublet"/>
+            <xs:element name="values" type="aem:Values"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <xs:complexType name="ClockDomainDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="clock_domain" type="aem:ClockDomainDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="ClockDomainDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.32</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="clock_source_index" type="aem:DescriptorIndex"/>
+            <xs:element name="clock_sources" type="aem:ClockSourceIndexes"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>    
+    <xs:complexType name="ClockSourceIndexes">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="clock_source_index" type="aem:DescriptorIndex"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="ControlBlockDescriptors">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="control_block" type="aem:ControlBlockDescriptor"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ControlBlockDescriptor">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.2.33</xs:documentation>
+        </xs:annotation>                                                
+        <xs:sequence>
+            <xs:element minOccurs="0" name="object_name" type="aem:AVDECCString"/>
+            <xs:element name="localized_description" type="aem:LocalizedStringContainer"/>
+            <xs:element name="final_control_index" type="aem:DescriptorIndex"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="controls" type="aem:ControlDescriptors"/>
+        </xs:sequence>
+        <xs:attribute name="symbol" use="optional" type="xs:string"/>        
+    </xs:complexType>
+    
+    <!-- control value types -->    
+
+    <xs:complexType name="Value" abstract="true">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5</xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+    
+    <xs:complexType name="T0000">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_INT8</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octet"/>
+                    <xs:element name="maximum" type="aem:Octet"/>
+                    <xs:element name="step" type="aem:Octet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octet"/>
+                    <xs:element name="default" type="aem:Octet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0001">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_UINT8</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octet"/>
+                    <xs:element name="maximum" type="aem:Octet"/>
+                    <xs:element name="step" type="aem:Octet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octet"/>
+                    <xs:element name="default" type="aem:Octet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0002">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_INT16</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Doublet"/>
+                    <xs:element name="maximum" type="aem:Doublet"/>
+                    <xs:element name="step" type="aem:Doublet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Doublet"/>
+                    <xs:element name="default" type="aem:Doublet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0003">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_UINT16</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Doublet"/>
+                    <xs:element name="maximum" type="aem:Doublet"/>
+                    <xs:element name="step" type="aem:Doublet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Doublet"/>
+                    <xs:element name="default" type="aem:Doublet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0004">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_INT32</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Quadlet"/>
+                    <xs:element name="maximum" type="aem:Quadlet"/>
+                    <xs:element name="step" type="aem:Quadlet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Quadlet"/>
+                    <xs:element name="default" type="aem:Quadlet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0005">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_UINT32</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Quadlet"/>
+                    <xs:element name="maximum" type="aem:Quadlet"/>
+                    <xs:element name="step" type="aem:Quadlet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Quadlet"/>
+                    <xs:element name="default" type="aem:Quadlet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0006">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_INT64</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octlet"/>
+                    <xs:element name="maximum" type="aem:Octlet"/>
+                    <xs:element name="step" type="aem:Octlet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octlet"/>
+                    <xs:element name="default" type="aem:Octlet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0007">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_UINT64</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octlet"/>
+                    <xs:element name="maximum" type="aem:Octlet"/>
+                    <xs:element name="step" type="aem:Octlet"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octlet"/>
+                    <xs:element name="default" type="aem:Octlet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0008">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_FLOAT</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Float"/>
+                    <xs:element name="maximum" type="aem:Float"/>
+                    <xs:element name="step" type="aem:Float"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Float"/>
+                    <xs:element name="default" type="aem:Float"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0009">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.1 - CONTROL_LINEAR_DOUBLE</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="string" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Double"/>
+                    <xs:element name="maximum" type="aem:Double"/>
+                    <xs:element name="step" type="aem:Double"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Double"/>
+                    <xs:element name="default" type="aem:Double"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T000a">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_INT8</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octet"/>
+                    <xs:element name="default" type="aem:Octet"/>
+                    <xs:element name="options" type="aem:SignedOctetOptions">
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="T000b">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_UINT8</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octet"/>
+                    <xs:element name="default" type="aem:Octet"/>
+                    <xs:element name="options" type="aem:UnsignedOctetOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T000c">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_INT16</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Doublet"/>
+                    <xs:element name="default" type="aem:Doublet"/>
+                    <xs:element name="options" type="aem:SignedDoubletOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T000d">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_UINT16</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Doublet"/>
+                    <xs:element name="default" type="aem:Doublet"/>
+                    <xs:element name="options" type="aem:UnsignedDoubletOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T000e">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_INT32</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Quadlet"/>
+                    <xs:element name="default" type="aem:Quadlet"/>
+                    <xs:element name="options" type="aem:SignedQuadletOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T000f">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_UINT32</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Quadlet"/>
+                    <xs:element name="default" type="aem:Quadlet"/>
+                    <xs:element name="options" type="aem:UnsignedQuadletOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0010">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_INT64</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octlet"/>
+                    <xs:element name="default" type="aem:Octlet"/>
+                    <xs:element name="options" type="aem:SignedOctletOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0011">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_UINT64</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Octlet"/>
+                    <xs:element name="default" type="aem:Octlet"/>
+                    <xs:element name="options" type="aem:UnsignedOctletOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0012">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_FLOAT</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Float"/>
+                    <xs:element name="default" type="aem:Float"/>
+                    <xs:element name="options" type="aem:FloatOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0013">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_DOUBLE</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:Double"/>
+                    <xs:element name="default" type="aem:Double"/>
+                    <xs:element name="options" type="aem:DoubleOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0014">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.2 - CONTROL_SELECTOR_STRING</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element minOccurs="0" name="current" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="default" type="aem:LocalizedStringContainer"/>
+                    <xs:element name="options" type="aem:LocalizedStringContainerOptions"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0015">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_INT8</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octet"/>
+                    <xs:element name="maximum" type="aem:Octet"/>
+                    <xs:element name="step" type="aem:Octet"/>
+                    <xs:element name="default" type="aem:Octet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentSignedOctets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="T0016">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_UINT8</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octet"/>
+                    <xs:element name="maximum" type="aem:Octet"/>
+                    <xs:element name="step" type="aem:Octet"/>
+                    <xs:element name="default" type="aem:Octet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentUnsignedOctets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0017">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_INT16</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Doublet"/>
+                    <xs:element name="maximum" type="aem:Doublet"/>
+                    <xs:element name="step" type="aem:Doublet"/>
+                    <xs:element name="default" type="aem:Doublet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentSignedDoublets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0018">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_UINT16</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Doublet"/>
+                    <xs:element name="maximum" type="aem:Doublet"/>
+                    <xs:element name="step" type="aem:Doublet"/>
+                    <xs:element name="default" type="aem:Doublet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentUnsignedDoublets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0019">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_INT32</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Quadlet"/>
+                    <xs:element name="maximum" type="aem:Quadlet"/>
+                    <xs:element name="step" type="aem:Quadlet"/>
+                    <xs:element name="default" type="aem:Quadlet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentSignedQuadlets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T001a">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_UINT32</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Quadlet"/>
+                    <xs:element name="maximum" type="aem:Quadlet"/>
+                    <xs:element name="step" type="aem:Quadlet"/>
+                    <xs:element name="default" type="aem:Quadlet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentUnsignedQuadlets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T001b">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_INT64</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octlet"/>
+                    <xs:element name="maximum" type="aem:Octlet"/>
+                    <xs:element name="step" type="aem:Octlet"/>
+                    <xs:element name="default" type="aem:Octlet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentSignedOctlets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T001c">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_UINT64</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Octlet"/>
+                    <xs:element name="maximum" type="aem:Octlet"/>
+                    <xs:element name="step" type="aem:Octlet"/>
+                    <xs:element name="default" type="aem:Octlet"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentUnsignedOctlets"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T001d">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - CONTROL_ARRAY_FLOAT</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Float"/>
+                    <xs:element name="maximum" type="aem:Float"/>
+                    <xs:element name="step" type="aem:Float"/>
+                    <xs:element name="default" type="aem:Float"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentFloats"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T001e">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.3 - ONTROL_ARRAY_DOUBLE</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="units" type="aem:Units"/>
+                    <xs:element name="minimum" type="aem:Double"/>
+                    <xs:element name="maximum" type="aem:Double"/>
+                    <xs:element name="step" type="aem:Double"/>
+                    <xs:element name="default" type="aem:Double"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:CurrentDoubles"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T001f">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.4 - CONTROL_UTF8</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="current" type="aem:ControlValueString"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0020">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.5 - CONTROL_BODE_PLOT</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="minimum" type="aem:BodePlotPoint"/>
+                    <xs:element name="maximum" type="aem:BodePlotPoint"/>
+                    <xs:element name="step" type="aem:BodePlotPoint"/>
+                    <xs:element name="default" type="aem:BodePlotPoint"/>
+                    <xs:element minOccurs="0" name="current_values" type="aem:BodePlotList"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0021">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.6 - CONTROL_SMPTE_TIME</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="hours" type="aem:Doublet"/>
+                    <xs:element name="minutes" type="aem:Octet"/>
+                    <xs:element name="seconds" type="aem:Octet"/>
+                    <xs:element name="frames" type="aem:Octet"/>
+                    <xs:element name="subframes" type="aem:Doublet"/>
+                    <xs:element name="frames_per_second" type="aem:Octet"/>
+                    <xs:element name="drop_frame" type="aem:Octet"/>
+                    <xs:element name="pull" type="aem:Octet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0022">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.7 - CONTROL_SAMPLE_RATE</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="pull" type="aem:Octet"/>
+                    <xs:element name="base_frequency" type="aem:Quadlet"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T0023">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.8 - CONTROL_GPTP_TIME</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="gptp_seconds" type="aem:GPTPSeconds"/>
+                    <xs:element name="gptp_nanoseconds" type="aem:GPTPNanoseconds"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="T3ffe">
+        <xs:annotation>
+            <xs:documentation>See IEEE Std 1722.1-2013 Clause 7.3.5.2.9 - CONTROL_VENDOR</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="vendor_eui64" type="aem:EUI64"/>
+                    <xs:element name="binary_blob" type="aem:HexBlobData"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TUNKNOWN">
+        <xs:annotation>
+            <xs:documentation>For value_type codes that do not match the standard set defined in IEEE Std 1722.1 Clause 7.3.5</xs:documentation>
+        </xs:annotation>                                                        
+        <xs:complexContent>
+            <xs:extension base="aem:Value">
+                <xs:sequence>
+                    <xs:element name="binary_blob" type="aem:HexBlobData"/>
+                </xs:sequence>
+                <xs:attribute name="value_type" use="required" type="aem:Doublet"/>                
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- simpleType definitions -->
+    
+    <xs:simpleType name="Float">
+        <xs:restriction base="xs:float"/>
+    </xs:simpleType>
+    <xs:simpleType name="Double">
+        <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+    <xs:simpleType name="AVDECCString">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="64"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ControlValueString">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="406"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="HexBlobData">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([\t\r\n ]*[0-9a-f][0-9a-f][\t\r\n ]*)*"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="HexData">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Units">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="EUI64">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{16}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="EUI48">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="MAC">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Octet">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Doublet">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Quadlet">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Octlet">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{16}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="GPTPSeconds">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="GPTPNanoseconds">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DescriptorType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DescriptorIndex">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="StreamFormat">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9a-f]{16}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ColorSpace">
+        <xs:restriction base="aem:Doublet" />
+    </xs:simpleType>
+    
+    <!-- 'simple' complexType definitions -->
+    
+    <xs:complexType name="StreamFormats">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="stream_format" type="aem:StreamFormat"/>
+        </xs:sequence>
+    </xs:complexType>    
+    
+    <xs:complexType name="AspectRatio">
+        <xs:sequence>
+            <xs:element name="pixel_width" type="aem:Octet"/>
+            <xs:element name="pixel_height" type="aem:Octet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="LocalizedStringContainer">
+        <xs:sequence>
+            <xs:element name="localized_string" type="aem:LocalizedString"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="LocalizedString">
+        <xs:sequence>
+            <xs:element name="offset" type="aem:Doublet"/>                        
+            <xs:element name="index" type="aem:Octet"/>            
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="VideoSize" >
+        <xs:sequence>
+            <xs:element name="frame_width" type="aem:Doublet"/>
+            <xs:element name="frame_height" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="BodePlot">
+        <xs:sequence>
+            <xs:element name="frequency" type="aem:Float"/>
+            <xs:element name="magnitude" type="aem:Float"/>
+            <xs:element name="phase" type="aem:Float"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BodePlotPoint">
+        <xs:sequence>
+            <xs:element name="bode_plot" type="aem:BodePlot"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BodePlotList">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="bode_plot" type="aem:BodePlot" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="SamplingRates">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="sampling_rate" type="aem:SamplingRate"/>
+        </xs:sequence>        
+    </xs:complexType>    
+    <xs:complexType name="SamplingRate">
+        <xs:sequence>
+            <xs:element name="pull" type="aem:Octet"/>
+            <xs:element name="base_frequency" type="aem:Quadlet"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Values">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="value" type="aem:Value"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="SignedOctetOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Octet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="UnsignedOctetOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Octet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SignedDoubletOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="UnsignedDoubletOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SignedQuadletOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Quadlet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="UnsignedQuadletOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Quadlet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="SignedOctletOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Octlet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="UnsignedOctletOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Octlet"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="FloatOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Float"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="DoubleOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:Double"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="LocalizedStringContainerOptions">
+        <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded" type="aem:LocalizedStringContainer"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="CurrentSignedOctets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Octet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentUnsignedOctets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Octet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentSignedDoublets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentUnsignedDoublets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Doublet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentSignedQuadlets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Quadlet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentUnsignedQuadlets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Quadlet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentSignedOctlets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Octlet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentUnsignedOctlets">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Octlet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentFloats">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Float"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CurrentDoubles">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="current" maxOccurs="unbounded" type="aem:Double"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+</xs:schema>
